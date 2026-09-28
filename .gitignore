@@ -1,0 +1,10 @@
+data*.json
+timetable-rules.json
+*.lnk
+*.log
+*.tmp
+*.signal
+*.csv
+!schedule-example.csv
+node_modules/
+ClassNote.exe
