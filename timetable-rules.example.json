@@ -1,0 +1,38 @@
+﻿{
+  "version": "example-v1",
+  "week1Monday": "2026-01-05",
+  "periodTimes": {
+    "1": {
+      "start": "08:00",
+      "end": "08:45"
+    },
+    "2": {
+      "start": "08:55",
+      "end": "09:40"
+    }
+  },
+  "rules": [
+    {
+      "weeks": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "periodEnd": 2,
+      "course": "示例课程一",
+      "weekday": 1,
+      "periodStart": 1
+    },
+    {
+      "weeks": [
+        2,
+        4
+      ],
+      "periodEnd": 2,
+      "course": "示例课程二",
+      "weekday": 3,
+      "periodStart": 1
+    }
+  ]
+}

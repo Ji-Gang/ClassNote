@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const {parseWeeks,expand,toCsv}=require('./generator.js');
+assert.deepEqual(parseWeeks('2-16双周'),[2,4,6,8,10,12,14,16]);
+assert.deepEqual(parseWeeks('第3周，7周,11周,15周'),[3,7,11,15]);
+assert.deepEqual(parseWeeks('1-5单周'),[1,3,5]);
+const c={week1Monday:'2026-09-14',periodTimes:{1:{start:'08:00',end:'08:45'},2:{start:'08:55',end:'09:40'}},rules:[{course:'示例课程',weekday:5,periodStart:1,periodEnd:2,weeks:'2-16双周'}]};
+const rows=expand(c);assert.equal(rows.length,8);assert.equal(rows[0].date,'2026-09-25');assert.equal(rows[1].date,'2026-10-09');assert.equal(rows[0].end,'09:40');
+assert.throws(()=>expand({...c,week1Monday:'2026-09-15'}));
+assert.throws(()=>expand({...c,periodTimes:{}}));
+assert.throws(()=>parseWeeks('16-2'));assert.throws(()=>parseWeeks('2双周,错误'));
+assert.ok(toCsv(rows).startsWith('\uFEFFdate,course,start,end\r\n'));
+assert.ok(toCsv([{...rows[0],course:'含逗号,和"引号"'}]).includes('"含逗号,和""引号"""'));
+assert.throws(()=>toCsv([rows[0],rows[0]]));
+assert.throws(()=>toCsv([{...rows[0],course:'=1+1'}]));
+console.log('PASS: odd/even/specific weeks, calendar dates, period validation, CSV quoting and duplicates');
